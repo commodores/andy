@@ -64,7 +64,7 @@ public class RobotContainer {
   private void initializeStartup()
   {
     m_swerve.setDefaultCommand(
-      new DriveManual(m_swerve, true)); //Setup default command for drivetrain and set field relative or robot relative drive
+      new DriveManual(m_swerve,true)); //Setup default command for drivetrain and set field relative or robot relative drive
 
     SmartDashboard.putData("Reset All", new ResetAll(m_swerve));
   }

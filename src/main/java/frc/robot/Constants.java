@@ -45,7 +45,7 @@ public final class Constants {
 
         public static int kVoltageCompensation = 12;
 
-        public static int kRevContinuosCurrentLimit = 15;
+        public static int kRevContinuosCurrentLimit = 20;
         public static int kRevPeakCurrentLimit = 30;
         
         //CAN IDS for Motors and Encoders
@@ -65,8 +65,9 @@ public final class Constants {
         public static final int kBackRightTurnChannel = 20;
         public static final int kBackRightEncoderChannel = 21;
 
-        public static final double kMaxSpeedMetersPerSecond = 4.84;
+        public static final double kMaxSpeedMetersPerSecond = 2.84;
 
+        //arm CAN ID is 6; Intake/Shooter ID is 7
     }
 
     public static final class ModuleConstants {
@@ -95,7 +96,11 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-      }
+    }
+
+    public static final class IntakeConstants {
+        public static final int kIntakeMotor1Port = 17;
+    }
 
 //Drive Characterization
 //kS - 0.578
