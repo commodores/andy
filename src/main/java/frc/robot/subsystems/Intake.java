@@ -4,40 +4,28 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import frc.robot.Constants.IntakeConstants;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class Intake extends CommandBase {
+public class Intake extends SubsystemBase {
+  private final TalonSRX intakeMotor;
   /** Creates a new Intake. */
-  private final TalonSRX intakeSrx;
-
   public Intake() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    intakeSrx = new WPI_TalonSRX(IntakeConstants.kIntakeMotor1Port);
+    intakeMotor = new TalonSRX(Constants.IntakeConstants.kIntakeMotorPort);
+    intakeMotor.configFactoryDefault();
+    intakeMotor.setNeutralMode(NeutralMode.Coast);
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+  public void runIntake(double speed){
+    intakeMotor.set(ControlMode.PercentOutput, speed);
   }
 }

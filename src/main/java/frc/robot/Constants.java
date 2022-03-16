@@ -99,7 +99,11 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotor1Port = 17;
+        public static final int kIntakeMotorPort = 30;
+    }
+
+    public static final class ArmConstants {
+        public static final int karmMotorPort = 31;
     }
 
 //Drive Characterization
