@@ -42,7 +42,7 @@ public class Drivetrain extends SubsystemBase {
     m_backLeft = new SwerveModule(DriveConstants.kBackLeftDriveChannel, DriveConstants.kBackLeftTurnChannel, DriveConstants.kBackLeftEncoderChannel, false, true);
     m_backRight = new SwerveModule(DriveConstants.kBackRightDriveChannel, DriveConstants.kBackRightTurnChannel, DriveConstants.kBackRightEncoderChannel, false, true);
 
-    m_gyro = new AHRS(Port.kOnboard);
+    m_gyro = new AHRS(SPI.Port.kMXP);
     
     m_field = new Field2d();
 
