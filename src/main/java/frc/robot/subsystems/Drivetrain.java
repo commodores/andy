@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-
+import com.kauailabs.navx.frc.*;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -19,6 +19,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.I2C.Port;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -41,8 +42,8 @@ public class Drivetrain extends SubsystemBase {
     m_backLeft = new SwerveModule(DriveConstants.kBackLeftDriveChannel, DriveConstants.kBackLeftTurnChannel, DriveConstants.kBackLeftEncoderChannel, false, true);
     m_backRight = new SwerveModule(DriveConstants.kBackRightDriveChannel, DriveConstants.kBackRightTurnChannel, DriveConstants.kBackRightEncoderChannel, false, true);
 
-    m_gyro = new AHRS(SerialPort.Port.kUSB1);
-
+    m_gyro = new AHRS(Port.kOnboard);
+    
     m_field = new Field2d();
 
                                       
