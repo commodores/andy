@@ -67,6 +67,10 @@ public final class Constants {
 
         public static final double kMaxSpeedMetersPerSecond = 2.84;
 
+        public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+
+        public static final double kMaxCentripetalAccel = 1.5;
+
         //arm CAN ID is 6; Intake/Shooter ID is 7
     }
 
