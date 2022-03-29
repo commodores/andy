@@ -67,7 +67,7 @@ public class DriveManual extends CommandBase {
         -m_rotLimiter.calculate(deadR)
             * ModuleConstants.kMaxModuleAngularSpeedRadiansPerSecond;
 
-    m_swerve.drive(xSpeed *.7, ySpeed *.7, rot*.5, fieldRelative);
+    m_swerve.drive(xSpeed *.85, ySpeed *.85, rot*.5, fieldRelative);
   }
 
   // Called once the command ends or is interrupted.
