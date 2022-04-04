@@ -20,13 +20,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.AutoIntake;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.ResetAll;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.List;
 
@@ -99,7 +102,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
-    m_intake.runIntake(.4);
+    m_intake.runIntake(.5);
+    
     TrajectoryConfig config =
         new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
@@ -144,6 +148,85 @@ public class RobotContainer {
     m_swerve.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_swerve.drive(0, 0, 0, false));
+    return swerveControllerCommand.andThen(() -> m_swerve.drive(0, 0, 0, false)).andThen(() -> m_intake.runIntake(0));
+  }
+}
+  /**
+   * Set options for autonomous command chooser and display them for selection on the SmartDashboard.
+   * Using string chooser rather than command chooser because if using a command chooser, will instantiate
+   * all the autonomous commands. This may cause problems (e.g. initial trajectory position is from a
+   * different command's path).
+   */
+  private void initializeAutoChooser()
+  {
+    /* Add options (which autonomous commands can be selected) to chooser. */
+    m_autoChooser.setDefaultOption("Do Nothing", "doNothing");
+    m_autoChooser.addOption("Test It", "testPath");
+    m_autoChooser.addOption("Drive off Tarmac", "offTarmac");
+    m_autoChooser.addOption("1 ball", "ball1");
+    m_autoChooser.addOption("2 ball", "ball2");
+    m_autoChooser.addOption("3 ball", "ball3");
+    m_autoChooser.addOption("4 ball", "ball4");
+    m_autoChooser.addOption("5 ball", "ball5");
+    m_autoChooser.addOption("Mid RedBall Defense", "doubleRedDefense");
+
+    /* Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period. */
+    SmartDashboard.putData("Autonomous Command", m_autoChooser);
+    
+  }
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand() {
+    
+    switch (m_autoChooser.getSelected())
+    {
+      case "testPath" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new RunTrajectory("testPath");
+
+      case "offTarmac":
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new FlashyMove();
+
+      case "ball1" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new AppleSauceNumberOne();
+
+      case "ball2" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new TwoFish();
+
+      case "ball3" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new RedFish();
+
+      case "ball4" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new BlueFish();
+
+      case "ball5" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new LeeroyJenkins();
+
+      case "doubleRedDefense" :
+        RobotContainer.m_drivetrain.setPos(0, 0);
+        RobotContainer.m_drivetrain.zeroSensors();
+        return new DDayDefense();
+
+      default:
+        System.out.println("\nError selecting autonomous command:\nCommand selected: " + m_autoChooser.getSelected() + "\n");
+        return null;
+    }
   }
 }
